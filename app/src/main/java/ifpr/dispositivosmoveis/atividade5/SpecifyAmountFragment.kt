@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,7 +19,10 @@ private const val ARG_PARAM2 = "param2"
  * Use the [SpecifyAmountFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SpecifyAmountFragment : Fragment() {
+class SpecifyAmountFragment : Fragment(), View.OnClickListener {
+
+    var navController: NavController? = null
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -36,6 +42,25 @@ class SpecifyAmountFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_specify_amount, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        navController = Navigation.findNavController(view)
+
+        view.findViewById<Button>(R.id.send_btn).setOnClickListener(this)
+        view.findViewById<Button>(R.id.cancel_btn).setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        when (v!!.id) {
+            R.id.send_btn -> {
+                navController!!.navigate(R.id.action_specifyAmountFragment_to_confirmationFragment)
+            }
+            R.id.cancel_btn -> requireActivity()?.onBackPressed()
+        }
+    }
+
 
     companion object {
         /**
