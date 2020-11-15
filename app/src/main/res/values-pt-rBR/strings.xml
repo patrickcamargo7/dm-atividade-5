@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Atividade 5</string>
     <string name="login">Entrar</string>
-    <string name="username">username</string>
+    <string name="username">Usuário</string>
 </resources>
