@@ -3,4 +3,15 @@
     <string name="app_name">Atividade 5</string>
     <string name="login">Entrar</string>
     <string name="username">Usuário</string>
+    <string name="view_transactions">Transações</string>
+    <string name="send_money">Enviar Dinheiro</string>
+    <string name="view_balance">Ver Saldo</string>
+    <string name="login_error">Email ou senha invalídos</string>
+    <string name="recipient">Recebedor</string>
+    <string name="name">Nome</string>
+    <string name="next">Avançar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="amount">Quantidade</string>
+    <string name="send">Enviar</string>
+    <string name="confirmation_message">"Você enviou %1$d para %2$s "</string>
 </resources>

@@ -1,16 +1,20 @@
 package ifpr.dispositivosmoveis.atividade5
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.fragment_choose_recipient.*
+import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment(), View.OnClickListener {
     var navController: NavController? = null
@@ -33,6 +37,16 @@ class LoginFragment : Fragment(), View.OnClickListener {
         navController = Navigation.findNavController(view)
 
         var bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+        bottomNav.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.menuViewTransactions -> navController!!.navigate(R.id.action_mainFragment_to_viewTransactionFragment)
+                R.id.menuSendMoney -> navController!!.navigate(R.id.action_mainFragment_to_chooseRecipientFragment)
+                R.id.menuViewBalance -> navController!!.navigate(R.id.action_mainFragment_to_viewBalanceFragment)
+            }
+            true
+        }
+
         hideBottomNav(bottomNav)
 
         navController!!.addOnDestinationChangedListener { _, destination, _ ->
@@ -40,8 +54,11 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 R.id.loginFragment -> {
                     hideBottomNav(bottomNav)
                 }
-                else -> {
+                R.id.mainFragment -> {
                     showBottomNav(bottomNav)
+                }
+                else -> {
+                    hideBottomNav(bottomNav)
                 }
             }
         }
@@ -60,7 +77,13 @@ class LoginFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.btnLogin -> {
-                navController!!.navigate(R.id.action_loginFragment_to_mainFragment)
+                if (!TextUtils.isEmpty(editTextPassword.text.toString())
+                    && !TextUtils.isEmpty(editTextPersonName.text.toString())
+                ) {
+                    navController!!.navigate(R.id.action_loginFragment_to_mainFragment)
+                } else {
+                    Toast.makeText(activity, resources.getText(R.string.login_error), Toast.LENGTH_SHORT)
+                }
             }
         }
     }

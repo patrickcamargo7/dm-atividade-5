@@ -3,4 +3,15 @@
     <string name="app_name">Atividade 5</string>
     <string name="login">Login</string>
     <string name="username">username</string>
+    <string name="view_transactions">View transactions</string>
+    <string name="send_money">Send money</string>
+    <string name="view_balance">View balance</string>
+    <string name="login_error">"Invalid email or password "</string>
+    <string name="recipient">Recipient</string>
+    <string name="name">Name</string>
+    <string name="next">Next</string>
+    <string name="cancel">Cancel</string>
+    <string name="amount">Amount</string>
+    <string name="send">Send</string>
+    <string name="confirmation_message">You Have sent %1$d to %2$s</string>
 </resources>

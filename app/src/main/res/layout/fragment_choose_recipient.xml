@@ -23,7 +23,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:helperText="Recipient"
+            app:helperText="@string/recipient"
             app:errorEnabled="true"
             android:layout_weight="60"
 
@@ -34,7 +34,7 @@
                 android:layout_height="match_parent"
                 android:inputType="text"
                 android:maxLines="1"
-                android:hint="Name"
+                android:hint="@string/name"
                 android:id="@+id/input_recipient"
                 />
 
@@ -51,7 +51,7 @@
         app:layout_constraintVertical_bias=".4"
         app:layout_constraintRight_toLeftOf="@+id/cancel_btn"
         android:id="@+id/next_btn"
-        android:text="next"
+        android:text="@string/next"
         />
 
     <Button
@@ -63,7 +63,7 @@
         app:layout_constraintLeft_toRightOf="@+id/next_btn"
         app:layout_constraintVertical_bias=".4"
         android:id="@+id/cancel_btn"
-        android:text="cancel"
+        android:text="@string/cancel"
         />
 
 

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_search"
-        android:title="Buscar"
-        android:icon="@drawable/baseline_add_white_18dp" />
+    <item android:id="@+id/menuViewTransactions"
+        android:title="@string/view_transactions"
+        android:icon="@drawable/baseline_receipt_long_white_18dp" />
+    <item android:id="@+id/menuSendMoney"
+        android:title="@string/send_money"
+        android:icon="@drawable/baseline_payment_white_18dp" />
+    <item android:id="@+id/menuViewBalance"
+        android:title="@string/view_balance"
+        android:icon="@drawable/baseline_account_balance_white_18dp" />
 </menu>
