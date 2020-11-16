@@ -14,4 +14,7 @@
     <string name="amount">Quantidade</string>
     <string name="send">Enviar</string>
     <string name="confirmation_message">"Você enviou %1$d para %2$s "</string>
+    <string name="password">Senha</string>
+    <string name="enter_amount">Preencha o valor</string>
+    <string name="enter_recipient">Informe o recebedor</string>
 </resources>

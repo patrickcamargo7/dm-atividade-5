@@ -61,7 +61,7 @@ class SpecifyAmountFragment : Fragment(), View.OnClickListener {
 
                     navController!!.navigate(R.id.action_specifyAmountFragment_to_confirmationFragment, bundle)
                 } else {
-                    Toast.makeText(activity, "Enter an amount", Toast.LENGTH_SHORT)
+                    Toast.makeText(activity, resources.getText(R.string.enter_amount), Toast.LENGTH_SHORT).show()
                 }
             }
             R.id.cancel_btn -> requireActivity()?.onBackPressed()

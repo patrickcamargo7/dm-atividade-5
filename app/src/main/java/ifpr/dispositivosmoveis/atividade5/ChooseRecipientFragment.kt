@@ -64,7 +64,7 @@ class ChooseRecipientFragment : Fragment(), OnClickListener {
                     val bundle = bundleOf("recipient" to input_recipient.text.toString())
                     navController!!.navigate(R.id.action_chooseRecipientFragment_to_specifyAmountFragment, bundle)
                 } else {
-                    Toast.makeText(activity, "Enter an recipient", Toast.LENGTH_SHORT)
+                    Toast.makeText(activity, resources.getText(R.string.recipient), Toast.LENGTH_SHORT).show()
                 }
             }
             R.id.cancel_btn -> requireActivity()?.onBackPressed()

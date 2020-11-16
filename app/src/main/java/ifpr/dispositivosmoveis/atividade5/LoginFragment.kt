@@ -82,7 +82,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 ) {
                     navController!!.navigate(R.id.action_loginFragment_to_mainFragment)
                 } else {
-                    Toast.makeText(activity, resources.getText(R.string.login_error), Toast.LENGTH_SHORT)
+                    Toast.makeText(activity, resources.getText(R.string.login_error), Toast.LENGTH_SHORT).show()
                 }
             }
         }
