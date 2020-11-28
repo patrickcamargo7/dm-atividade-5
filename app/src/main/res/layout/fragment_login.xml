@@ -7,7 +7,7 @@
     tools:context=".LoginFragment">
 
     <EditText
-        android:id="@+id/editTextPersonName"
+        android:id="@+id/editTextLoginUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.438" />
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/editTextLoginPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -28,7 +28,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLoginUsername" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLoginPassword" />
 
     <TextView
         android:id="@+id/textView"
@@ -48,8 +48,8 @@
         android:layout_marginStart="4dp"
         android:layout_marginBottom="16dp"
         android:text="@string/username"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editTextPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextLoginUsername"
+        app:layout_constraintStart_toStartOf="@+id/editTextLoginUsername"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -59,8 +59,8 @@
         android:layout_marginStart="4dp"
         android:layout_marginBottom="12dp"
         android:text="@string/password"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextPassword" />
+        app:layout_constraintBottom_toBottomOf="@+id/editTextLoginPassword"
+        app:layout_constraintStart_toStartOf="@+id/editTextLoginPassword" />
 
     <TextView
         android:id="@+id/textViewRegister"
