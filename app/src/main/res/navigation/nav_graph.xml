@@ -15,12 +15,18 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/loginFragment"
           />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="ifpr.dispositivosmoveis.atividade5.MainFragment"
         android:label="fragment_main"
-
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_chooseRecipientFragment"
@@ -46,6 +52,13 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             />
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/chooseRecipientFragment"
@@ -101,5 +114,26 @@
         android:name="ifpr.dispositivosmoveis.atividade5.ViewTransactionFragment"
         android:label="fragment_view_transaction"
         tools:layout="@layout/fragment_view_transaction" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="ifpr.dispositivosmoveis.atividade5.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            />
+        <action
+            android:id="@+id/action_registerFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
 
 </navigation>

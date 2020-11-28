@@ -17,4 +17,8 @@
     <string name="password">Senha</string>
     <string name="enter_amount">Preencha o valor</string>
     <string name="enter_recipient">Informe o recebedor</string>
+    <string name="register">Registrar-se</string>
+    <string name="password_confirmation">Confirmação de Senha</string>
+    <string name="invalid_data">Informações Invalidas</string>
+    <string name="logout">Sair</string>
 </resources>

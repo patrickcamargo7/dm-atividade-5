@@ -17,4 +17,8 @@
     <string name="password">Password</string>
     <string name="enter_amount">Enter Amount</string>
     <string name="enter_recipient">Enter Recipient</string>
+    <string name="register">Register</string>
+    <string name="password_confirmation">Password Confirmation</string>
+    <string name="invalid_data">Invalid information</string>
+    <string name="logout">Logout</string>
 </resources>
