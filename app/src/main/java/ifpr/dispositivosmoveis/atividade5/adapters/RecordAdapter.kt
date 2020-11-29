@@ -32,12 +32,21 @@ import java.text.SimpleDateFormat
 
 class RecordAdapter(context: Context, userId: Long) : RecyclerView.Adapter<RecordAdapter.ViewHolder>() {
     private val dao: RecordDAO
-    private val records: MutableList<Record>
+    private var records: MutableList<Record>
     private var recordEditing: Record? = null
 
     init {
         dao =  AppDatabase.getInstance(context).recordDAO()
         records = dao.getAll(userId).toMutableList()
+    }
+
+    fun search(userId: Long, query: String) {
+        if (query == null || query.isEmpty()) {
+            records = dao.getAll(userId).toMutableList()
+        } else {
+            records = dao.search(userId, query).toMutableList()
+        }
+        notifyDataSetChanged()
     }
 
     fun edit(record: Record) {

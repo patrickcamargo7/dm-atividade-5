@@ -11,6 +11,9 @@ interface RecordDAO {
     @Query("SELECT sum(value) FROM records WHERE user_id = :userId AND value < 0")
     fun getTotalPayments(userId: Long): Float
 
+    @Query("SELECT * FROM records WHERE user_id = :userId AND person LIKE '%' || :search || '%'")
+    fun search(userId: Long, search: String): List<Record>
+
     @Query("SELECT sum(value) FROM records WHERE user_id = :userId AND value >= 0")
     fun getTotalReceives(userId: Long): Float
 

@@ -69,6 +69,16 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         toolbar.menu.findItem(R.id.menuViewLogout).isVisible = false
     }
 
+    private fun showToolbarSearch()
+    {
+        toolbar.menu.findItem(R.id.action_search).isVisible = true
+    }
+
+    private fun hideToolbarSearch()
+    {
+        toolbar.menu.findItem(R.id.action_search).isVisible = false
+    }
+
     private fun showToolbarItems() {
         toolbar.menu.findItem(R.id.menuViewLogout).isVisible = true
     }
@@ -87,7 +97,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menuViewTransactions -> navController!!.navigate(R.id.action_mainFragment_to_viewTransactionFragment)
+            R.id.menuViewTransactions -> {
+                navController!!.navigate(R.id.action_mainFragment_to_viewTransactionFragment)
+            }
             R.id.menuSendMoney -> {
                 val bundle = bundleOf("type" to ChooseRecipientFragment.TYPE_SEND)
                 navController!!.navigate(R.id.action_mainFragment_to_chooseRecipientFragment, bundle)
@@ -111,17 +123,25 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             R.id.loginFragment -> {
                 hideBottomNav()
                 hideToolbarItems()
+                hideToolbarSearch()
             }
             R.id.mainFragment -> {
                 showBottomNav()
                 showToolbarItems()
+                hideToolbarSearch()
             }
             R.id.registerFragment -> {
                 hideToolbarItems()
+                hideToolbarSearch()
             }
+            /*
+            R.id.viewTransactionFragment -> {
+                showToolbarSearch()
+            }*/
             else -> {
                 hideBottomNav()
                 hideToolbarItems()
+                hideToolbarSearch()
             }
         }
     }
