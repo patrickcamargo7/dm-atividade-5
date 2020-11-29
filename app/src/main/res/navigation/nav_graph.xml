@@ -65,6 +65,10 @@
         android:name="ifpr.dispositivosmoveis.atividade5.ChooseRecipientFragment"
         android:label="fragment_choose_recipient"
         tools:layout="@layout/fragment_choose_recipient" >
+
+        <argument android:name="type"
+            android:defaultValue="send" />
+
         <action
             android:id="@+id/action_chooseRecipientFragment_to_specifyAmountFragment"
             app:destination="@id/specifyAmountFragment"
@@ -77,10 +81,15 @@
         android:id="@+id/confirmationFragment"
         android:name="ifpr.dispositivosmoveis.atividade5.ConfirmationFragment"
         android:label="fragment_confirmation"
+        app:popUpTo="@id/mainFragment"
+        app:popUpToInclusive="true"
         tools:layout="@layout/fragment_confirmation">
 
         <argument android:name="recipient"
             android:defaultValue="None" />
+
+        <argument android:name="type"
+            android:defaultValue="send" />
 
         <argument android:name="amount"
            app:argType="ifpr.dispositivosmoveis.atividade5.Money" />

@@ -21,22 +21,21 @@
         android:weightSum="100">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/labelType"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:helperText="@string/recipient"
-            app:errorEnabled="true"
             android:layout_weight="60"
+            app:errorEnabled="true"
 
-            >
+            app:helperText="@string/recipient">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_recipient"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="text"
-                android:maxLines="1"
                 android:hint="@string/name"
-                android:id="@+id/input_recipient"
-                />
+                android:inputType="text"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

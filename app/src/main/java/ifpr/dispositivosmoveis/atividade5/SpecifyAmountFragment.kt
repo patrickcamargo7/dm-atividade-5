@@ -12,23 +12,31 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.google.android.material.textfield.TextInputLayout
+import ifpr.dispositivosmoveis.atividade5.database.AppDatabase
+import ifpr.dispositivosmoveis.atividade5.database.dao.RecordDAO
+import ifpr.dispositivosmoveis.atividade5.database.dao.UserDAO
+import ifpr.dispositivosmoveis.atividade5.models.Record
+import ifpr.dispositivosmoveis.atividade5.util.UserSession
 import kotlinx.android.synthetic.main.fragment_specify_amount.*
+import java.lang.Exception
 import java.math.BigDecimal
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private const val ARG_RECIPIENT = "recipient"
 
 class SpecifyAmountFragment : Fragment(), View.OnClickListener {
-
     lateinit var navController: NavController
-
     private var recipient: String? = null
+    private var type: String? = null
+
+    private var dao: RecordDAO? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             recipient = it.getString(ARG_RECIPIENT)
+            type = it.getString(ChooseRecipientFragment.ARG_TYPE)
         }
     }
 
@@ -36,7 +44,6 @@ class SpecifyAmountFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_specify_amount, container, false)
     }
 
@@ -50,6 +57,16 @@ class SpecifyAmountFragment : Fragment(), View.OnClickListener {
 
         val message = "Sending money to $recipient"
         view.findViewById<TextView>(R.id.recipient).text = message
+
+        var tvRecipient = view.findViewById<TextView>(R.id.recipient)
+
+        tvRecipient.text = resources.getText(R.string.sending_to).toString().format(recipient)
+
+        if (type.equals(ChooseRecipientFragment.TYPE_RECEIVE)) {
+            tvRecipient.text = resources.getText(R.string.receive_from).toString().format(recipient)
+        }
+
+        dao = context?.let { AppDatabase.getInstance(it).recordDAO() }
     }
 
     override fun onClick(v: View?) {
@@ -57,7 +74,12 @@ class SpecifyAmountFragment : Fragment(), View.OnClickListener {
             R.id.send_btn -> {
                 if (!TextUtils.isEmpty(input_amount.text.toString())) {
                     val amount = Money(BigDecimal(input_amount.text.toString()))
-                    val bundle = bundleOf("recipient" to recipient, "amount" to amount)
+                    val bundle = bundleOf("recipient" to recipient, "amount" to amount, "type" to type)
+
+                    if (!createRecord()) {
+                        Toast.makeText(activity, resources.getText(R.string.invalid_data), Toast.LENGTH_SHORT).show()
+                        return
+                    }
 
                     navController!!.navigate(R.id.action_specifyAmountFragment_to_confirmationFragment, bundle)
                 } else {
@@ -68,5 +90,24 @@ class SpecifyAmountFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    fun createRecord() : Boolean {
+        var value = input_amount.text.toString().toFloat()
 
+        if (type.equals(ChooseRecipientFragment.TYPE_SEND)) {
+            value = input_amount.text.toString().toFloat() * -1;
+        }
+
+        if (recipient != null) {
+            return try {
+                var record: Record = Record(value = value, person = recipient!!, remarks = "")
+                record.userId = UserSession.getUserAuthId(requireActivity())
+                dao?.insert(record)
+                true
+            } catch (e: Exception) {
+                false;
+            }
+        }
+
+        return false;
+    }
 }

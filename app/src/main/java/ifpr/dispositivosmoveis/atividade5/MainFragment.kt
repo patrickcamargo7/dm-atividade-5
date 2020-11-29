@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import kotlinx.android.synthetic.main.fragment_choose_recipient.*
 
 class MainFragment : Fragment(), View.OnClickListener {
 
@@ -32,12 +34,21 @@ class MainFragment : Fragment(), View.OnClickListener {
         view.findViewById<Button>(R.id.view_transactions_btn).setOnClickListener(this)
         view.findViewById<Button>(R.id.send_money_btn).setOnClickListener(this)
         view.findViewById<Button>(R.id.view_balance_btn).setOnClickListener(this)
+        view.findViewById<Button>(R.id.receive_money_btn).setOnClickListener(this)
+
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.view_transactions_btn -> navController!!.navigate(R.id.action_mainFragment_to_viewTransactionFragment)
-            R.id.send_money_btn -> navController!!.navigate(R.id.action_mainFragment_to_chooseRecipientFragment)
+            R.id.send_money_btn -> {
+                val bundle = bundleOf("type" to ChooseRecipientFragment.TYPE_SEND)
+                navController!!.navigate(R.id.action_mainFragment_to_chooseRecipientFragment, bundle)
+            }
+            R.id.receive_money_btn -> {
+                val bundle = bundleOf("type" to ChooseRecipientFragment.TYPE_RECEIVE)
+                navController!!.navigate(R.id.action_mainFragment_to_chooseRecipientFragment, bundle)
+            }
             R.id.view_balance_btn -> navController!!.navigate(R.id.action_mainFragment_to_viewBalanceFragment)
         }
     }

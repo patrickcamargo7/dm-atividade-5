@@ -2,9 +2,9 @@
     <string name="app_name">Atividade 5</string>
     <string name="login">Entrar</string>
     <string name="username">username</string>
-    <string name="view_transactions">View transactions</string>
-    <string name="send_money">Send money</string>
-    <string name="view_balance">View balance</string>
+    <string name="view_transactions">Transactions</string>
+    <string name="send_money">Send</string>
+    <string name="view_balance">Balance</string>
     <string name="login_error">Invalid email or password</string>
     <string name="recipient">Recipient</string>
     <string name="name">Name</string>
@@ -12,7 +12,9 @@
     <string name="cancel">Cancel</string>
     <string name="amount">Amount</string>
     <string name="send">Send</string>
-    <string name="confirmation_message">You Have sent %1$d to %2$s</string>
+    <string name="confirmation_message">You Have sent %1$s to %2$s</string>
+    <string name="confirmation_message_receive">You received %1$s from %2$s</string>
+
     <string name="password">Password</string>
     <string name="enter_amount">Enter Amount</string>
     <string name="enter_recipient">Enter Recipient</string>
@@ -20,5 +22,10 @@
     <string name="password_confirmation">Password Confirmation</string>
     <string name="invalid_data">Invalid information</string>
     <string name="logout">Logout</string>
-
+    <string name="receive">Receive</string>
+    <string name="payer">Payer</string>
+    <string name="sending_to">Sending money to %1$s</string>
+    <string name="receive_from">Receive money from %1$s</string>
+    <string name="choose_person">Choose person</string>
+    <string name="back_to_home">Back to home</string>
 </resources>

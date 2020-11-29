@@ -4,8 +4,8 @@
     <string name="login">Entrar</string>
     <string name="username">Usuário</string>
     <string name="view_transactions">Transações</string>
-    <string name="send_money">Enviar Dinheiro</string>
-    <string name="view_balance">Ver Saldo</string>
+    <string name="send_money">Enviar</string>
+    <string name="view_balance">Saldo</string>
     <string name="login_error">Email ou senha invalídos</string>
     <string name="recipient">Recebedor</string>
     <string name="name">Nome</string>
@@ -13,7 +13,7 @@
     <string name="cancel">Cancelar</string>
     <string name="amount">Quantidade</string>
     <string name="send">Enviar</string>
-    <string name="confirmation_message">"Você enviou %1$d para %2$s "</string>
+    <string name="confirmation_message">"Você enviou %1$s para %2$s "</string>
     <string name="password">Senha</string>
     <string name="enter_amount">Preencha o valor</string>
     <string name="enter_recipient">Informe o recebedor</string>
@@ -21,4 +21,11 @@
     <string name="password_confirmation">Confirmação de Senha</string>
     <string name="invalid_data">Informações Invalidas</string>
     <string name="logout">Sair</string>
+    <string name="receive">Receber</string>
+    <string name="payer">payer</string>
+    <string name="sending_to">Enviando dinheiro para %1$s</string>
+    <string name="receive_from">Recebendo dinheiro de %1$s</string>
+    <string name="choose_person">Informe a pessoa</string>
+    <string name="confirmation_message_receive">Você recebeu %1$s de %2$s</string>
+    <string name="back_to_home">Voltar para home</string>
 </resources>

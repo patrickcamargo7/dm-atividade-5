@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.*
 import androidx.navigation.fragment.NavHostFragment
@@ -84,7 +85,14 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menuViewTransactions -> navController!!.navigate(R.id.action_mainFragment_to_viewTransactionFragment)
-            R.id.menuSendMoney -> navController!!.navigate(R.id.action_mainFragment_to_chooseRecipientFragment)
+            R.id.menuSendMoney -> {
+                val bundle = bundleOf("type" to ChooseRecipientFragment.TYPE_SEND)
+                navController!!.navigate(R.id.action_mainFragment_to_chooseRecipientFragment, bundle)
+            }
+            R.id.menuReceiveMoney -> {
+                val bundle = bundleOf("type" to ChooseRecipientFragment.TYPE_RECEIVE)
+                navController!!.navigate(R.id.action_mainFragment_to_chooseRecipientFragment, bundle)
+            }
             R.id.menuViewBalance -> navController!!.navigate(R.id.action_mainFragment_to_viewBalanceFragment)
         }
         return true

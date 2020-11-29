@@ -7,7 +7,7 @@ import ifpr.dispositivosmoveis.atividade5.database.dao.UserDAO
 import ifpr.dispositivosmoveis.atividade5.models.Record
 import ifpr.dispositivosmoveis.atividade5.models.User
 
-@Database(entities = [User::class, Record::class], version = 2)
+@Database(entities = [User::class, Record::class], version = 3)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDAO(): UserDAO
