@@ -31,7 +31,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         graph = navController!!.navInflater.inflate(R.navigation.nav_graph)
         graph!!.startDestination = this.getInitialFragment()
-        if (this.getInitialFragment() == R.id.loginFragment) hideBottomNav()
+        if (this.getInitialFragment() == R.id.loginFragment) {
+            hideBottomNav()
+            hideToolbarItems()
+        }
         navController!!.graph = graph as NavGraph
 
         navController!!.addOnDestinationChangedListener(this)
@@ -103,6 +106,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         destination: NavDestination,
         arguments: Bundle?
     ) {
+        destination.id
         when (destination.id) {
             R.id.loginFragment -> {
                 hideBottomNav()
@@ -117,7 +121,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
             else -> {
                 hideBottomNav()
-                showToolbarItems()
+                hideToolbarItems()
             }
         }
     }

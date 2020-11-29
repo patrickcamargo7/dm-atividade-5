@@ -28,4 +28,6 @@
     <string name="choose_person">Choose person</string>
     <string name="confirmation_message_receive">You received %1$s from %2$s</string>
     <string name="back_to_home">Back to home</string>
+    <string name="save">Save</string>
+    <string name="note">Note</string>
 </resources>

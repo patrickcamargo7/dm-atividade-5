@@ -28,4 +28,6 @@
     <string name="receive_from">Receive money from %1$s</string>
     <string name="choose_person">Choose person</string>
     <string name="back_to_home">Back to home</string>
+    <string name="save">Save</string>
+    <string name="note">Note</string>
 </resources>

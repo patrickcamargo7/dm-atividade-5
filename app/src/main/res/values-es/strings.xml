@@ -28,4 +28,6 @@
     <string name="choose_person">Informe a pessoa</string>
     <string name="confirmation_message_receive">Você recebeu %1$s de %2$s</string>
     <string name="back_to_home">Voltar para home</string>
+    <string name="save">Salvar</string>
+    <string name="note">Observações</string>
 </resources>

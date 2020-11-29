@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -28,4 +29,13 @@ data class Record(
     var createDate: java.sql.Date = java.sql.Date(System.currentTimeMillis())
 
     override fun equals(other: Any?) = other is Record && this.id == other.id
+
+    fun getFormattedDate(): String
+    {
+        var pattern: String = "dd/MM/yyyy";
+        var simpleDateFormat: SimpleDateFormat = SimpleDateFormat(pattern);
+        var date: String = simpleDateFormat.format(createDate)
+
+        return date
+    }
 }
