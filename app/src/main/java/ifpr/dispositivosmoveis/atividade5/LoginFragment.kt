@@ -12,12 +12,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import ifpr.dispositivosmoveis.atividade5.database.AppDatabase
-import ifpr.dispositivosmoveis.atividade5.database.dao.UserDAO
+import ifpr.dispositivosmoveis.atividade5.dao.UserDAO
 import ifpr.dispositivosmoveis.atividade5.models.User
+import ifpr.dispositivosmoveis.atividade5.util.UserSession
 
 class LoginFragment : Fragment(), View.OnClickListener {
-    private var dao: UserDAO? = null
+    private val dao: UserDAO = UserDAO()
     var navController: NavController? = null
 
     private lateinit var editTextUsername: EditText
@@ -44,8 +44,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
         editTextUsername = view.findViewById<EditText>(R.id.editTextLoginUsername)
         editTextPassword = view.findViewById<EditText>(R.id.editTextLoginPassword)
-
-        dao = context?.let { AppDatabase.getInstance(it).userDAO() }
     }
 
 
@@ -53,13 +51,17 @@ class LoginFragment : Fragment(), View.OnClickListener {
         when (v!!.id) {
             R.id.btnLogin -> {
                 if (userIsValid()) {
-                    navController!!.navigate(R.id.action_loginFragment_to_mainFragment)
+                    var user: User? = null
+
+                    dao.authenticate(editTextUsername.text.toString(), editTextPassword.text.toString(), { userAPI ->
+                        user = userAPI.first();
+                        UserSession.setAuthenticatedUser(requireActivity(), user!!);
+                        navController!!.navigate(R.id.action_loginFragment_to_mainFragment)
+                    }, {
+                        showMessage()
+                    })
                 } else {
-                    Toast.makeText(
-                        activity,
-                        resources.getText(R.string.login_error),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showMessage()
                 }
             }
             R.id.textViewRegister -> {
@@ -68,16 +70,19 @@ class LoginFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun userIsValid(): Boolean {
+    private fun showMessage() {
+        Toast.makeText(
+            activity,
+            resources.getText(R.string.login_error),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun userIsValid(): Boolean {
         try {
             if (isEmptyFields())
                 return false;
-
-            var users: List<User> = dao!!.where(editTextUsername.text.toString(), editTextPassword.text.toString());
-            if (users.isNotEmpty())
-                return true;
-
-            return false;
+            return true;
         } catch(e: Exception) {
             return false;
         }

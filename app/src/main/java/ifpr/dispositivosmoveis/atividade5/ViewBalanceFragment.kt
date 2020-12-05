@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import ifpr.dispositivosmoveis.atividade5.database.AppDatabase
-import ifpr.dispositivosmoveis.atividade5.database.dao.RecordDAO
-import ifpr.dispositivosmoveis.atividade5.database.dao.UserDAO
+import ifpr.dispositivosmoveis.atividade5.dao.RecordDAO
 import ifpr.dispositivosmoveis.atividade5.util.UserSession
 
 class ViewBalanceFragment : Fragment() {
 
-    private var dao: RecordDAO? = null
+    private var dao: RecordDAO = RecordDAO()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,17 +26,26 @@ class ViewBalanceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dao = context?.let { AppDatabase.getInstance(it).recordDAO() }
 
         var userId: Long = UserSession.getUserAuthId(requireActivity())
+        var send: Double = 0.0
+        var receive: Double = 0.0
+        var total: Double = 0.0
 
-        var receives: Float = dao!!.getTotalReceives(userId)
-        var send: Float = dao!!.getTotalPayments(userId)
-        var total: Float = send + receives;
+        dao.filter(userId, true) { transactionsAPI ->
+            run {
+                transactionsAPI.forEach { t -> send += t.value }
+                view.findViewById<TextView>(R.id.tvBalanceSend).text = """${send}$"""
 
-        view.findViewById<TextView>(R.id.tvBalanceValue).text = "$total$"
-        view.findViewById<TextView>(R.id.tvBalanceSend).text = """${(send * -1)}$"""
-        view.findViewById<TextView>(R.id.tvBalanceReceive).text = "$receives$"
-
+                dao.filter(userId, false) { transactionsAPI ->
+                    run {
+                        transactionsAPI.forEach { t -> receive += t.value }
+                        total = receive - send;
+                        view.findViewById<TextView>(R.id.tvBalanceValue).text = "$total$"
+                        view.findViewById<TextView>(R.id.tvBalanceReceive).text = "$receive$"
+                    }
+                }
+            }
+        }
     }
 }

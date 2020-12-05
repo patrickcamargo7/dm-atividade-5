@@ -1,41 +1,37 @@
 package ifpr.dispositivosmoveis.atividade5.models
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-@Entity(tableName = "records",     foreignKeys = [
-    ForeignKey(entity = User::class,
-        parentColumns = ["id"],
-        childColumns = ["user_id"]
-    )]
-)
+
 data class Record(
-    @ColumnInfo(name = "value") var value: Float,
-    @ColumnInfo(name = "person") var person: String,
-    @ColumnInfo(name = "remarks") var remarks: String
+    var value: Float,
+    var person: String,
+    var remarks: String,
+    var send: Boolean
 ) {
-    @PrimaryKey(autoGenerate = true)
     var id: Long? = null
 
-    @ColumnInfo(name = "user_id")
+    @SerializedName("user_id")
     var userId: Long? = null
 
-    @ColumnInfo(name = "registered_at")
-    var createDate: java.sql.Date = java.sql.Date(System.currentTimeMillis())
+    @SerializedName("create_date")
+    var createDate: String = now()
 
     override fun equals(other: Any?) = other is Record && this.id == other.id
 
-    fun getFormattedDate(): String
-    {
+    fun now() : String {
+        return formatDate(Date())
+    }
+
+    fun formatDate(date: Date) : String {
         var pattern: String = "dd/MM/yyyy";
         var simpleDateFormat: SimpleDateFormat = SimpleDateFormat(pattern);
-        var date: String = simpleDateFormat.format(createDate)
+        var result: String = simpleDateFormat.format(date)
 
-        return date
+        return result
     }
+
 }

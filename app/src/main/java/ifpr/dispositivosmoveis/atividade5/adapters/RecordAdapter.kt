@@ -10,10 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import ifpr.dispositivosmoveis.atividade5.R
-import ifpr.dispositivosmoveis.atividade5.database.AppDatabase
-import ifpr.dispositivosmoveis.atividade5.database.dao.RecordDAO
+import ifpr.dispositivosmoveis.atividade5.dao.RecordDAO
 import ifpr.dispositivosmoveis.atividade5.models.Record
 import kotlinx.android.synthetic.main.fragment_choose_recipient.view.*
 import kotlinx.android.synthetic.main.item_record.view.*
@@ -31,22 +29,29 @@ import java.security.AccessController.getContext
 import java.text.SimpleDateFormat
 
 class RecordAdapter(context: Context, userId: Long) : RecyclerView.Adapter<RecordAdapter.ViewHolder>() {
-    private val dao: RecordDAO
-    private var records: MutableList<Record>
+    private val dao: RecordDAO = RecordDAO()
+    private var records = mutableListOf<Record>()
     private var recordEditing: Record? = null
 
     init {
-        dao =  AppDatabase.getInstance(context).recordDAO()
-        records = dao.getAll(userId).toMutableList()
+        dao.getAll(userId) { recordsAPI ->
+            records = recordsAPI.toMutableList()
+            notifyDataSetChanged()
+        }
     }
 
     fun search(userId: Long, query: String) {
         if (query == null || query.isEmpty()) {
-            records = dao.getAll(userId).toMutableList()
+            dao.getAll(userId) { recordsAPI ->
+                records = recordsAPI.toMutableList()
+                notifyDataSetChanged()
+            }
         } else {
-            records = dao.search(userId, query).toMutableList()
+            dao.search(userId, query) { recordsAPI ->
+                records = recordsAPI.toMutableList()
+                notifyDataSetChanged()
+            }
         }
-        notifyDataSetChanged()
     }
 
     fun edit(record: Record) {
@@ -56,14 +61,15 @@ class RecordAdapter(context: Context, userId: Long) : RecyclerView.Adapter<Recor
     }
 
     fun save(record: Record) {
-        dao.update(record)
-        val position = records.indexOf(record)
-        recordEditing = null
-        notifyItemChanged(position)
+        dao.update(record) { recordAPI ->
+            record.remarks = recordAPI.remarks
+            val position = records.indexOf(record)
+            recordEditing = null
+            notifyItemChanged(position)
+        }
     }
 
     override fun getItemCount() = records.size
-
 
     override fun getItemViewType(position: Int): Int {
         val record = records[position]
@@ -93,7 +99,7 @@ class RecordAdapter(context: Context, userId: Long) : RecyclerView.Adapter<Recor
             itemView.tvValue.setText(record.value.toString())
             itemView.tvPerson.setText(record.person.toString())
 
-            itemView.tvDate.setText(record.getFormattedDate())
+            itemView.tvDate.setText(record.createDate)
 
             if (record.value < 0) {
                 itemView.tvValue.setTextColor(Color.parseColor("#F44336"))

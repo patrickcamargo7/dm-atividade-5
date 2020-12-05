@@ -12,10 +12,7 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.google.android.material.textfield.TextInputLayout
-import ifpr.dispositivosmoveis.atividade5.database.AppDatabase
-import ifpr.dispositivosmoveis.atividade5.database.dao.RecordDAO
-import ifpr.dispositivosmoveis.atividade5.database.dao.UserDAO
+import ifpr.dispositivosmoveis.atividade5.dao.RecordDAO
 import ifpr.dispositivosmoveis.atividade5.models.Record
 import ifpr.dispositivosmoveis.atividade5.util.UserSession
 import kotlinx.android.synthetic.main.fragment_specify_amount.*
@@ -30,7 +27,7 @@ class SpecifyAmountFragment : Fragment(), View.OnClickListener {
     private var recipient: String? = null
     private var type: String? = null
 
-    private var dao: RecordDAO? = null
+    private var dao: RecordDAO = RecordDAO()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,8 +62,6 @@ class SpecifyAmountFragment : Fragment(), View.OnClickListener {
         if (type.equals(ChooseRecipientFragment.TYPE_RECEIVE)) {
             tvRecipient.text = resources.getText(R.string.receive_from).toString().format(recipient)
         }
-
-        dao = context?.let { AppDatabase.getInstance(it).recordDAO() }
     }
 
     override fun onClick(v: View?) {
@@ -93,15 +88,13 @@ class SpecifyAmountFragment : Fragment(), View.OnClickListener {
     fun createRecord() : Boolean {
         var value = input_amount.text.toString().toFloat()
 
-        if (type.equals(ChooseRecipientFragment.TYPE_SEND)) {
-            value = input_amount.text.toString().toFloat() * -1;
-        }
-
         if (recipient != null) {
             return try {
-                var record: Record = Record(value = value, person = recipient!!, remarks = "")
+                val send: Boolean = type.equals(ChooseRecipientFragment.TYPE_SEND);
+                var record: Record = Record(value = value, person = recipient!!, remarks = "", send = send)
                 record.userId = UserSession.getUserAuthId(requireActivity())
-                dao?.insert(record)
+                dao.insert(record) { recordAPI ->
+                }
                 true
             } catch (e: Exception) {
                 false;

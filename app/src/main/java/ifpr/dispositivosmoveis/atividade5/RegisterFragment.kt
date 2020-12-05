@@ -1,6 +1,5 @@
 package ifpr.dispositivosmoveis.atividade5
 
-import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -12,17 +11,14 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.room.Room
-import ifpr.dispositivosmoveis.atividade5.database.AppDatabase
-import ifpr.dispositivosmoveis.atividade5.database.dao.UserDAO
+import ifpr.dispositivosmoveis.atividade5.dao.UserDAO
 import ifpr.dispositivosmoveis.atividade5.models.User
 import ifpr.dispositivosmoveis.atividade5.util.UserSession
 import kotlinx.android.synthetic.main.fragment_register.*
-import kotlinx.android.synthetic.main.fragment_register.view.*
 
 class RegisterFragment : Fragment(), View.OnClickListener {
     var navController: NavController? = null
-    private var dao: UserDAO? = null
+    private var dao: UserDAO = UserDAO()
 
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
@@ -50,8 +46,6 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         usernameEditText = view.findViewById<EditText>(R.id.editTextUsername)
         passwordEditText = view.findViewById<EditText>(R.id.editTextRegisterPassword)
         passwordConfirmationEditText = view.findViewById<EditText>(R.id.editTextRegisterPasswordConfirmation)
-
-        dao = context?.let { AppDatabase.getInstance(it).userDAO() }
     }
 
     override fun onClick(v: View?) {
@@ -77,10 +71,11 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         val user = User(usernameEditText.text.toString(), passwordConfirmationEditText.text.toString())
 
         try {
-            val userId : Long = dao!!.insert(user);
-            user.id = userId;
-
-            UserSession.setAuthenticatedUser(requireActivity(), user);
+            dao.insert(user, { userAPI ->
+                UserSession.setAuthenticatedUser(requireActivity(), userAPI);
+            }, { error ->
+                throw error;
+            })
 
             return user;
         } catch (e: Exception) {
